@@ -52,6 +52,9 @@ namespace Graficzna
                         // Display the image in your application UI
                         imageControl.Source = bitmap;
 
+                        // Reset zoom to 1
+                        zoomSlider.Value = 1;
+
                         // Resize the Image control to fit the loaded image dimensions
                         imageControl.Width = bitmap.PixelWidth;
                         imageControl.Height = bitmap.PixelHeight;
@@ -117,6 +120,15 @@ namespace Graficzna
         private void DrawLine(object sender, ExecutedRoutedEventArgs e)
         {
             // Obsługa rysowania linii
+        }
+
+        private void ZoomSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (imageControl?.Source != null)
+            {
+                double zoomFactor = zoomSlider.Value;
+                imageControl.LayoutTransform = new ScaleTransform(zoomFactor, zoomFactor);
+            }
         }
     }
 }
