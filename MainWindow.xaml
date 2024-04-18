@@ -10,8 +10,8 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top" Padding="10,4">
             <MenuItem Padding="8,0"  Header="_File" FontSize="16">
-                <MenuItem Header="_Open" Command="local:MainWindow.OpenImageCommand"/>
-                <MenuItem Header="_Save" Command="local:MainWindow.SaveImageCommand"/>
+                <MenuItem Header="_Open" Command="local:OpenImage.Command"/>
+                <MenuItem Header="_Save" Command="local:SaveImage.Command"/>
             </MenuItem>
         </Menu>
         <Grid Margin="10">
