@@ -1,1 +1,1 @@
-# Graficzna
+# Graphic-App
