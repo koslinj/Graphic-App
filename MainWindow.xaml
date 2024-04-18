@@ -33,7 +33,9 @@
                 </ToolBar>
             </ToolBarTray>
 
-            <Image Grid.Column="1" x:Name="imageControl"/>
+            <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Image x:Name="imageControl"/>
+            </ScrollViewer>
 
             <Slider Grid.Column="1" Grid.Row="1" x:Name="zoomSlider" Minimum="0.05" Maximum="4" Value="1" TickFrequency="0.05" TickPlacement="BottomRight" ValueChanged="ZoomSlider_ValueChanged" Foreground="Black" BorderBrush="Black" Background="#FFEEF5FD"/>
         </Grid>
