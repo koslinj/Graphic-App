@@ -72,12 +72,12 @@ namespace Graficzna
             }
         }
 
-        public static void UpdateZoom(Image imageControl, Slider zoomSlider)
+        public static void UpdateZoom(Grid imageContainer, Slider zoomSlider)
         {
-            if (imageControl?.Source != null)
+            if (imageContainer?.Children != null)
             {
                 double zoomFactor = zoomSlider.Value;
-                imageControl.LayoutTransform = new System.Windows.Media.ScaleTransform(zoomFactor, zoomFactor);
+                imageContainer.LayoutTransform = new System.Windows.Media.ScaleTransform(zoomFactor, zoomFactor);
             }
         }
     }
