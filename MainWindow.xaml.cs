@@ -12,8 +12,9 @@ namespace Graficzna
         public static RoutedUICommand DrawLineCommand = new RoutedUICommand("Draw Line", "DrawLine", typeof(MainWindow));
         private Point startPoint;
         private List<Point> points = new List<Point>();
+        private bool isDrawingEnabled = false;
 
-         private void StartDrawing(object sender, MouseButtonEventArgs e)
+        private void StartDrawing(object sender, MouseButtonEventArgs e)
         {
             if (e.ButtonState == MouseButtonState.Pressed)
             {
@@ -24,7 +25,7 @@ namespace Graficzna
 
         private void ContinueDrawing(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            if (e.LeftButton == MouseButtonState.Pressed && isDrawingEnabled)
             {
                 var currentPoint = e.GetPosition(imageControl);
                 points.Add(currentPoint);
@@ -73,7 +74,18 @@ namespace Graficzna
 
         private void DrawLine(object sender, ExecutedRoutedEventArgs e)
         {
-            // Obsługa rysowania linii
+            if(isDrawingEnabled)
+            {
+                isDrawingEnabled = false;
+                drawBtn.Content = "Start Drawing";
+                imageContainer.Cursor = Cursors.Arrow;
+            } else
+            {
+                isDrawingEnabled = true;
+                drawBtn.Content = "Stop Drawing";
+                imageContainer.Cursor = Cursors.Cross;
+            }
+            
         }
 
         private void ZoomSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

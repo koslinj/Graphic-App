@@ -28,8 +28,8 @@
 
             <ToolBarTray IsLocked="True" Orientation="Vertical">
                 <ToolBar>
-                    <Button Command="local:MainWindow.ApplyFilterCommand" Content="Apply Filter"/>
-                    <Button Command="local:MainWindow.DrawLineCommand" Content="Draw Line"/>
+                    <Button x:Name="filterBtn" Command="local:MainWindow.ApplyFilterCommand" Content="Apply Filter"/>
+                    <Button x:Name="drawBtn" Command="local:MainWindow.DrawLineCommand" Content="Start Drawing"/>
                 </ToolBar>
             </ToolBarTray>
 
