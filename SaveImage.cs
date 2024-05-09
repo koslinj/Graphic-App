@@ -13,7 +13,7 @@ namespace Graficzna
             var mainWindow = sender as MainWindow;
             if (mainWindow != null)
             {
-                ImageHelper.SaveImage(mainWindow.imageControl);
+                ImageHelper.SaveImage(mainWindow.imageControl, mainWindow.canvas);
             }
         }
 

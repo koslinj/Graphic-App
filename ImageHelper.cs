@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
 using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Image = System.Windows.Controls.Image;
 
@@ -43,31 +45,34 @@ namespace Graficzna
             }
         }
 
-        public static void SaveImage(Image imageControl)
+        public static void SaveImage(Image imageControl, Canvas canvas)
         {
-            BitmapSource bitmapSource = (BitmapSource)imageControl.Source;
-            if (bitmapSource != null)
+            RenderTargetBitmap renderBitmap = new RenderTargetBitmap(
+                (int)imageControl.ActualWidth, (int)imageControl.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+
+            renderBitmap.Render(imageControl);
+
+            renderBitmap.Render(canvas);
+
+            BitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "JPEG Files (*.jpg)|*.jpg|All Files (*.*)|*.*";
+
+            if (saveFileDialog.ShowDialog() == true)
             {
-                BitmapEncoder encoder = new JpegBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
-
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.Filter = "JPEG Files (*.jpg)|*.jpg|All Files (*.*)|*.*";
-
-                if (saveFileDialog.ShowDialog() == true)
+                try
                 {
-                    try
+                    using (Stream stream = File.Create(saveFileDialog.FileName))
                     {
-                        using (Stream stream = File.Create(saveFileDialog.FileName))
-                        {
-                            encoder.Save(stream);
-                            System.Windows.MessageBox.Show("Image saved successfully.");
-                        }
+                        encoder.Save(stream);
+                        MessageBox.Show("Image saved successfully.");
                     }
-                    catch (Exception ex)
-                    {
-                        System.Windows.MessageBox.Show("Error saving image: " + ex.Message);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error saving image: " + ex.Message);
                 }
             }
         }
