@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Point = System.Windows.Point;
 
@@ -8,11 +9,11 @@ namespace Graficzna
 {
     public partial class MainWindow : Window
     {
-        public static RoutedUICommand ApplyFilterCommand = new RoutedUICommand("Apply Filter", "ApplyFilter", typeof(MainWindow));
         public static RoutedUICommand DrawLineCommand = new RoutedUICommand("Draw Line", "DrawLine", typeof(MainWindow));
         private Point startPoint;
         private List<Point> points = new List<Point>();
         private bool isDrawingEnabled = false;
+        public BitmapSource? rgb = null;
 
         private void StartDrawing(object sender, MouseButtonEventArgs e)
         {
@@ -59,7 +60,7 @@ namespace Graficzna
             InitializeComponent();
             CommandBindings.Add(new CommandBinding(OpenImage.Command, OpenImage.Execute, OpenImage.CanExecute));
             CommandBindings.Add(new CommandBinding(SaveImage.Command, SaveImage.Execute, SaveImage.CanExecute));
-            CommandBindings.Add(new CommandBinding(ApplyFilterCommand, ApplyFilter));
+            CommandBindings.Add(new CommandBinding(ApplyFilter.Command, ApplyFilter.Execute, ApplyFilter.CanExecute));
             CommandBindings.Add(new CommandBinding(DrawLineCommand, DrawLine));
 
             imageControl.MouseDown += StartDrawing;
@@ -67,25 +68,21 @@ namespace Graficzna
             imageControl.MouseUp += EndDrawing;
         }
 
-        private void ApplyFilter(object sender, ExecutedRoutedEventArgs e)
-        {
-            // Obsługa stosowania filtru
-        }
-
         private void DrawLine(object sender, ExecutedRoutedEventArgs e)
         {
-            if(isDrawingEnabled)
+            if (isDrawingEnabled)
             {
                 isDrawingEnabled = false;
                 drawBtn.Content = "Start Drawing";
                 imageContainer.Cursor = Cursors.Arrow;
-            } else
+            }
+            else
             {
                 isDrawingEnabled = true;
                 drawBtn.Content = "Stop Drawing";
                 imageContainer.Cursor = Cursors.Cross;
             }
-            
+
         }
 
         private void ZoomSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

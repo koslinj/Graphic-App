@@ -28,7 +28,7 @@
 
             <ToolBarTray IsLocked="True" Orientation="Vertical">
                 <ToolBar>
-                    <Button x:Name="filterBtn" Command="local:MainWindow.ApplyFilterCommand" Content="Apply Filter"/>
+                    <Button x:Name="filterBtn" Command="local:ApplyFilter.Command" Content="to GRAY"/>
                     <Button x:Name="drawBtn" Command="local:MainWindow.DrawLineCommand" Content="Start Drawing"/>
                 </ToolBar>
             </ToolBarTray>
