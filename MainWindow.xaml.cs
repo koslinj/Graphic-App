@@ -31,7 +31,10 @@ namespace Graficzna
                 var currentPoint = e.GetPosition(imageControl);
                 points.Add(currentPoint);
 
-                DrawLineSegment(points[points.Count - 2], currentPoint);
+                if (points.Count >= 2)
+                {
+                    DrawLineSegment(points[points.Count - 2], currentPoint);
+                }
             }
         }
 
@@ -63,9 +66,9 @@ namespace Graficzna
             CommandBindings.Add(new CommandBinding(ApplyFilter.Command, ApplyFilter.Execute, ApplyFilter.CanExecute));
             CommandBindings.Add(new CommandBinding(DrawLineCommand, DrawLine));
 
-            imageControl.MouseDown += StartDrawing;
-            imageControl.MouseMove += ContinueDrawing;
-            imageControl.MouseUp += EndDrawing;
+            generalContainer.MouseDown += StartDrawing;
+            generalContainer.MouseMove += ContinueDrawing;
+            generalContainer.MouseUp += EndDrawing;
         }
 
         private void DrawLine(object sender, ExecutedRoutedEventArgs e)
@@ -74,13 +77,13 @@ namespace Graficzna
             {
                 isDrawingEnabled = false;
                 drawBtn.Content = "Start Drawing";
-                imageContainer.Cursor = Cursors.Arrow;
+                generalContainer.Cursor = Cursors.Arrow;
             }
             else
             {
                 isDrawingEnabled = true;
                 drawBtn.Content = "Stop Drawing";
-                imageContainer.Cursor = Cursors.Cross;
+                generalContainer.Cursor = Cursors.Cross;
             }
 
         }

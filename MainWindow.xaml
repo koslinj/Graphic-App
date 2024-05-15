@@ -33,7 +33,7 @@
                 </ToolBar>
             </ToolBarTray>
 
-            <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer x:Name="generalContainer" Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <Grid x:Name="imageContainer"
                       Width="{Binding ActualWidth, ElementName=imageControl}"
             Height="{Binding ActualHeight, ElementName=imageControl}">
