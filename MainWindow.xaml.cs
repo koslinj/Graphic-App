@@ -3,6 +3,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Brush = System.Windows.Media.Brush;
+using Brushes = System.Windows.Media.Brushes;
+using Cursors = System.Windows.Input.Cursors;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Point = System.Windows.Point;
 
 namespace Graficzna
@@ -14,6 +18,8 @@ namespace Graficzna
         private List<Point> points = new List<Point>();
         private bool isDrawingEnabled = false;
         public BitmapSource? rgb = null;
+        private Brush strokeColor = Brushes.Black;
+        private double strokeWidth = 2.0;
 
         private void StartDrawing(object sender, MouseButtonEventArgs e)
         {
@@ -51,8 +57,8 @@ namespace Graficzna
                 Y1 = start.Y,
                 X2 = end.X,
                 Y2 = end.Y,
-                Stroke = Brushes.Black,
-                StrokeThickness = 2
+                Stroke = strokeColor,
+                StrokeThickness = strokeWidth
             };
 
             canvas.Children.Add(line);
@@ -91,6 +97,26 @@ namespace Graficzna
         private void ZoomSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             ImageHelper.UpdateZoom(imageContainer, zoomSlider);
+        }
+
+        private void ChangeColor_Click(object sender, RoutedEventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                System.Drawing.Color selectedColor = colorDialog.Color;
+                System.Windows.Media.Color mediaColor = System.Windows.Media.Color.FromArgb(selectedColor.A, selectedColor.R, selectedColor.G, selectedColor.B);
+                // Create SolidColorBrush from the mediaColor
+                strokeColor = new SolidColorBrush(mediaColor);
+                drawBtn.Foreground = new SolidColorBrush(mediaColor);
+            }
+        }
+
+        private void ThicknessSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            double newValue = e.NewValue;
+            // Update stroke thickness
+            strokeWidth = newValue;
         }
     }
 }

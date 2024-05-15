@@ -30,6 +30,10 @@
                 <ToolBar>
                     <Button x:Name="filterBtn" Command="local:ApplyFilter.Command" Content="to GRAY"/>
                     <Button x:Name="drawBtn" Command="local:MainWindow.DrawLineCommand" Content="Start Drawing"/>
+                    <!-- Button for changing stroke color -->
+                    <Button Content="Change Color" Click="ChangeColor_Click"/>
+                    <!-- Slider for changing stroke thickness -->
+                    <Slider x:Name="thicknessSlider" Width="100" Minimum="1" Maximum="10" Value="2" TickPlacement="BottomRight" TickFrequency="1" ValueChanged="ThicknessSlider_ValueChanged"/>
                 </ToolBar>
             </ToolBarTray>
 
