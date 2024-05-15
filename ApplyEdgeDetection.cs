@@ -1,5 +1,4 @@
-﻿using AForge.Imaging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +7,9 @@ using System.Windows.Input;
 
 namespace Graficzna
 {
-    public static class ApplyFilter
+    public static class ApplyEdgeDetection
     {
-        public static RoutedUICommand Command = new RoutedUICommand("Apply Filter", "ApplyFilter", typeof(ApplyFilter));
+        public static RoutedUICommand Command = new RoutedUICommand("Apply Edge Detection", "ApplyEdgeDetection", typeof(ApplyEdgeDetection));
 
         public static void Execute(object sender, ExecutedRoutedEventArgs e)
         {
@@ -20,15 +19,15 @@ namespace Graficzna
                 if (mainWindow.rgb != null)
                 {
                     ImageHelper.toRGB(mainWindow.imageControl, mainWindow.rgb);
-                    mainWindow.filterBtn.Content = "to GRAY";
+                    mainWindow.edgeBtn.Content = "EDGE DETECTION";
                     mainWindow.rgb = null;
                     mainWindow.imageOperation = ImageOperation.NOTHING;
                 }
                 else
                 {
-                    mainWindow.rgb = ImageHelper.toGrayscale(mainWindow.imageControl);
-                    mainWindow.filterBtn.Content = "revert";
-                    mainWindow.imageOperation = ImageOperation.RGBTOGRAY;
+                    mainWindow.rgb = ImageHelper.edgeDetection(mainWindow.imageControl);
+                    mainWindow.edgeBtn.Content = "revert";
+                    mainWindow.imageOperation = ImageOperation.EDGEDETECTION;
                 }
             }
         }
@@ -38,7 +37,7 @@ namespace Graficzna
             var mainWindow = sender as MainWindow;
             if (mainWindow != null)
             {
-                e.CanExecute = (mainWindow.imageControl.Source != null && (mainWindow.imageOperation == ImageOperation.NOTHING || mainWindow.imageOperation == ImageOperation.RGBTOGRAY));
+                e.CanExecute = (mainWindow.imageControl.Source != null && (mainWindow.imageOperation == ImageOperation.NOTHING || mainWindow.imageOperation == ImageOperation.EDGEDETECTION));
             }
         }
     }

@@ -20,6 +20,7 @@ namespace Graficzna
         public BitmapSource? rgb = null;
         private Brush strokeColor = Brushes.Black;
         private double strokeWidth = 2.0;
+        public ImageOperation imageOperation = ImageOperation.NOTHING;
 
         private void StartDrawing(object sender, MouseButtonEventArgs e)
         {
@@ -70,6 +71,8 @@ namespace Graficzna
             CommandBindings.Add(new CommandBinding(OpenImage.Command, OpenImage.Execute, OpenImage.CanExecute));
             CommandBindings.Add(new CommandBinding(SaveImage.Command, SaveImage.Execute, SaveImage.CanExecute));
             CommandBindings.Add(new CommandBinding(ApplyFilter.Command, ApplyFilter.Execute, ApplyFilter.CanExecute));
+            CommandBindings.Add(new CommandBinding(ApplyThreshold.Command, ApplyThreshold.Execute, ApplyThreshold.CanExecute));
+            CommandBindings.Add(new CommandBinding(ApplyEdgeDetection.Command, ApplyEdgeDetection.Execute, ApplyEdgeDetection.CanExecute));
             CommandBindings.Add(new CommandBinding(DrawLineCommand, DrawLine));
 
             generalContainer.MouseDown += StartDrawing;

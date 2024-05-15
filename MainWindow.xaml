@@ -29,6 +29,8 @@
             <ToolBarTray IsLocked="True" Orientation="Vertical">
                 <ToolBar>
                     <Button x:Name="filterBtn" Command="local:ApplyFilter.Command" Content="to GRAY"/>
+                    <Button x:Name="threshBtn" Command="local:ApplyThreshold.Command" Content="THRESHOLD"/>
+                    <Button x:Name="edgeBtn" Command="local:ApplyEdgeDetection.Command" Content="EDGE DETECTION"/>
                     <Button x:Name="drawBtn" Command="local:MainWindow.DrawLineCommand" Content="Start Drawing"/>
                     <!-- Button for changing stroke color -->
                     <Button Content="Change Color" Click="ChangeColor_Click"/>

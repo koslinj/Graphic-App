@@ -15,6 +15,31 @@ namespace Graficzna
 {
     public static class ImageHelper
     {
+        public static BitmapSource edgeDetection(Image imageControl)
+        {
+            BitmapSource rgb = toGrayscale(imageControl);
+            SobelEdgeDetector filter = new SobelEdgeDetector();
+            BitmapSource source = (BitmapSource)imageControl.Source;
+            Bitmap bitmap = BitmapFromSource(source);
+            Bitmap edgeImage = filter.Apply(bitmap);
+            BitmapImage bitmapImage = BitmapToBitmapImage(edgeImage);
+            imageControl.Source = bitmapImage;
+            return rgb;
+        }
+
+        public static BitmapSource threshold(Image imageControl)
+        {
+            BitmapSource rgb = toGrayscale(imageControl);
+            IterativeThreshold filter = new IterativeThreshold(2, 128);
+            BitmapSource source = (BitmapSource)imageControl.Source;
+            Bitmap bitmap = BitmapFromSource(source);
+            Bitmap thImage = filter.Apply(bitmap);
+            BitmapImage bitmapImage = BitmapToBitmapImage(thImage);
+            imageControl.Source = bitmapImage;
+            return rgb;
+        }
+
+
         public static BitmapSource toGrayscale(Image imageControl)
         {
             Grayscale filter = new Grayscale(0.2125, 0.7154, 0.0721);
